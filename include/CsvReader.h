@@ -5,12 +5,12 @@
 #ifndef CSVREADER_H
 #define CSVREADER_H
 
-#include <vector>
+#include <Matrix.h>
 #include <string>
 
 class CsvReader {
 public:
-    bool readCsv(const std::string& filename, std::vector<std::vector<double>>& matrix);
+    static bool readCsv(const std::string& filename, Matrix& matrix);
 };
 
 

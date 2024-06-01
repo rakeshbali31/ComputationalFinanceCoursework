@@ -1,8 +1,11 @@
 #include "AssetCharacteristics.h"
 
-std::vector<double> AssetCharacteristics::calculateMeans(const std::vector<std::vector<double>>& returns, int startRow, int endRow) {
+using Vector = std::vector<double>;
+using Matrix = std::vector<Vector>;
+
+Vector AssetCharacteristics::calculateMeans(const Matrix& returns, int startRow, int endRow) {
     int numAssets = returns[0].size();
-    std::vector<double> means(numAssets, 0.0);
+    Vector means(numAssets, 0.0);
 
     for (int i = 0; i < numAssets; ++i) {
         for (int k = startRow; k < endRow; ++k) {
@@ -10,13 +13,12 @@ std::vector<double> AssetCharacteristics::calculateMeans(const std::vector<std::
         }
         means[i] /= (endRow - startRow);
     }
-
     return means;
 }
 
-std::vector<std::vector<double>> AssetCharacteristics::calculateCovariance(const std::vector<std::vector<double>>& returns, const std::vector<double>& means, int startRow, int endRow) {
+Matrix AssetCharacteristics::calculateCovariance(const Matrix& returns, const Vector& means, int startRow, int endRow) {
     int numAssets = returns[0].size();
-    std::vector<std::vector<double>> covariance(numAssets, std::vector<double>(numAssets, 0.0));
+    Matrix covariance(numAssets, Vector(numAssets, 0.0));
 
     for (int i = 0; i < numAssets; ++i) {
         for (int j = i; j < numAssets; ++j) {  // Start from i to fill the upper triangle

@@ -7,7 +7,8 @@
 #include <sstream>
 #include <string>
 
-bool CsvReader::readCsv(const std::string& filename, std::vector<std::vector<double>>& matrix) {
+
+bool CsvReader::readCsv(const std::string& filename, Matrix& matrix) {
     std::ifstream file(filename);
     if (!file.is_open()) {
         std::cerr << "Unable to open file: " << filename << std::endl;
@@ -18,7 +19,7 @@ bool CsvReader::readCsv(const std::string& filename, std::vector<std::vector<dou
     while (getline(file, line)) {
         std::stringstream ss(line);
         std::string cell;
-        std::vector<double> row;
+        Vector row;
 
         while (getline(ss, cell, ',')) {
             row.push_back(std::stod(cell));
