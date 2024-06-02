@@ -11,7 +11,7 @@ Vector PortfolioSolver::solver() const {
     // Create the augmented matrices for optimization
     Matrix Q(numAssets + 2, Vector(numAssets + 2, 0.0));
     Vector b(numAssets + 2, 0.0);
-    Vector x0(numAssets + 2, 1.0/numAssets); // Initial guess
+    Vector x0(numAssets + 2, 1.0); // Initial guess
 
     // Fill Q and b based on the model
     for (int i = 0; i < numAssets; ++i) {
