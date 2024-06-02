@@ -24,11 +24,11 @@ void Backtest::backtest() {
             Vector weights = solver();
 
             Vector meanReturns = AssetCharacteristics::calculateMeans(getAssetReturns(), end, end+out_of_sample_period);
-            double portfolioReturn = Algorithm::dot(weights,meanReturns);
+            double portfolioReturn = weights ^ meanReturns;
             portfolioReturns.push_back(portfolioReturn);
 
             Matrix covariance = AssetCharacteristics::calculateCovariance(getAssetReturns(), meanReturns, end, end+out_of_sample_period);
-            double portfolioVariance = Algorithm::dot(weights, Algorithm::multiply(covariance, weights));
+            double portfolioVariance = weights ^ (covariance * weights);
             portfolioVariances.push_back(portfolioVariance);
 
             end += out_of_sample_period;
@@ -73,7 +73,7 @@ int Backtest::getInputData() {
 void Backtest::displayResults() const {
 
     for (int i = 0; i < target_returns.size(); ++i) {
-        std::cout << "Printing results for target return :: " << std::fixed << std::setprecision(10) << target_returns[i] << std::endl << std::endl;
+        std::cout << "Printing results for target return :: " << std::fixed << std::setprecision(3) << target_returns[i] << std::endl << std::endl;
 
         Vector returns = out_of_sample_returns[i];
         Vector variances = out_of_sample_variance[i];

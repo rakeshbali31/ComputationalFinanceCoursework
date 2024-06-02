@@ -4,66 +4,26 @@
 
 #include "Algorithm.h"
 
-Vector Algorithm::multiply(const Matrix& matrix, const Vector& vec) {
-    Vector result(vec.size(), 0.0);
-    for (size_t i = 0; i < matrix.size(); ++i) {
-        for (size_t j = 0; j < matrix[i].size(); ++j) {
-            result[i] += matrix[i][j] * vec[j];
-        }
-    }
-    return result;
-}
 
-double Algorithm::dot(const Vector& a, const Vector& b) {
-    double result = 0.0;
-    for (size_t i = 0; i < a.size(); ++i) {
-        result += a[i] * b[i];
-    }
-    return result;
-}
-
-Vector Algorithm::add(const Vector& a, const Vector& b) {
-    Vector result(a.size());
-    for (size_t i = 0; i < a.size(); ++i) {
-        result[i] = a[i] + b[i];
-    }
-    return result;
-}
-
-Vector Algorithm::subtract(const Vector& a, const Vector& b) {
-    Vector result(a.size());
-    for (size_t i = 0; i < a.size(); ++i) {
-        result[i] = a[i] - b[i];
-    }
-    return result;
-}
-
-Vector Algorithm::scalarMultiply(double scalar, const Vector& vec) {
-    Vector result(vec.size());
-    for (size_t i = 0; i < vec.size(); ++i) {
-        result[i] = scalar * vec[i];
-    }
-    return result;
-}
-
+// Function to implement the conjugate gradient algorithm
 Vector Algorithm::conjugateGradient(const Matrix& Q, const Vector& b, const Vector& x0, double tolerance) {
     Vector x = x0;
-    Vector r = subtract(b, multiply(Q, x));
+    Vector r = b - (Q * x); // Using operator- for subtraction
     Vector p = r;
-    double rsold = dot(r, r);
+    double rsold = r ^ r; // Using operator^ for dot product
 
     for (size_t i = 0; i < b.size(); ++i) {
-        Vector Qp = multiply(Q, p);
-        double alpha = rsold / dot(p, Qp);
-        x = add(x, scalarMultiply(alpha, p));
-        r = subtract(r, scalarMultiply(alpha, Qp));
-        double rsnew = dot(r, r);
+        Vector Qp = Q * p;
+        double alpha = rsold / (p ^ Qp); // Using operator^ for dot product
+        x = x + (alpha * p); // Using operator+ for addition and operator* for scalar multiplication
+        r = r - (alpha * Qp); // Using operator- for subtraction and operator* for scalar multiplication
+        double rsnew = r ^ r; // Using operator^ for dot product
 
         if (sqrt(rsnew) < tolerance)
             break;
 
         double beta = rsnew / rsold;
-        p = add(r, scalarMultiply(beta, p));
+        p = r + (beta * p); // Using operator+ for addition and operator* for scalar multiplication
         rsold = rsnew;
     }
     return x;

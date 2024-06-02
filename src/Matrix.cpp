@@ -31,6 +31,24 @@ Vector operator+(const double& a,const Vector& V)
    return U;
 }
 
+// Subtracts two vectors element-wise.
+Vector operator-(const Vector& V,const Vector& W)
+{
+   int d = V.size();
+   Vector U(d);
+   for (int j=0; j<d; j++) U[j] = V[j] - W[j];
+   return U;
+}
+
+// Subtracts a scalar to each element of a vector.
+Vector operator-(const Vector& V, const double& a)
+{
+   int d = V.size();
+   Vector U(d);
+   for (int j=0; j<d; j++) U[j] = V[j] - a;
+   return U;
+}
+
 // Multiplies each element of a vector by a scalar.
 Vector operator*(const double& a,const Vector& V)
 {

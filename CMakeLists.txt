@@ -11,6 +11,7 @@ add_library(PortfolioSolver SHARED src/PortfolioSolver.cpp)
 add_library(AssetCharacteristics SHARED src/AssetCharacteristics.cpp)
 add_library(Backtest SHARED src/Backtest.cpp)
 
+target_link_libraries(Algorithm Matrix)
 target_link_libraries(PortfolioSolver Algorithm AssetCharacteristics)
 target_link_libraries(Backtest CsvReader PortfolioSolver)
 
