@@ -28,7 +28,7 @@ Matrix AssetCharacteristics::calculateCovariance(const Matrix& returns, const Ve
                 double diff_j = returns[k][j] - means[j];
                 sum += diff_i * diff_j;
             }
-            covariance[i][j] = sum / (endRow - startRow - 1);  // Using N-1 (sample covariance) adjust if needed
+            covariance[i][j] = sum / (endRow - startRow - 1);  // Using N-1 (sample covariance)
             covariance[j][i] = covariance[i][j];  // Symmetric matrix
         }
     }

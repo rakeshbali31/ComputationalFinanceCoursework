@@ -6,15 +6,16 @@
 class PortfolioSolver {
 private:
     Matrix assetReturns; // Stores returns of various assets within a specified range.
-    double targetReturn;                           // Target return for the portfolio.
-    int startRow;                                  // Starting index of the row in asset returns data.
-    int endRow;                                    // Ending index of the row in asset returns data.
+    double targetReturn; // Target return for the portfolio.
+    int startRow;        // Starting index of the row in asset returns data.
+    int endRow;          // Ending index of the row in asset returns data.
 
 public:
     // Constructors
     PortfolioSolver() : targetReturn(0.0), startRow(0), endRow(0) {} // Default constructor initializing all members.
     explicit PortfolioSolver(const Matrix& matrix, double target, int start, int end)
-        : assetReturns(matrix), targetReturn(target), startRow(start), endRow(end) {} // Constructor to initialize all properties.
+        : assetReturns(matrix), targetReturn(target), startRow(start), endRow(end) {}
+    // Constructor to initialize all properties.
 
     // Setters
     void setAssetReturns(const Matrix& matrix) { assetReturns = matrix; }
