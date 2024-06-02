@@ -12,7 +12,7 @@ int main() {
     }
     backtest.backtest();
     backtest.displayResults();
-    backtest.saveResultsToCSV("results1.csv");
+    backtest.saveResultsToCSV("results_python.csv");
 
 }
 
